@@ -1,0 +1,222 @@
+@NUTSHELL Colorized
+by HactarCE
+
+0: blank
+1: blue {rgb_b}
+2: green {rgb_g}
+3: cyan {rgb_c}
+4: red {rgb_r}
+5: magenta {rgb_m}
+6: yellow {rgb_y}
+7: white {rgb_w}
+8: tail {tail}
+9: head {head}
+10: construction head {chead}
+11: pusher head {push}
+12: puller head {pull}
+13: construction marker {cons}
+14: temporary {temp}
+
+
+
+@COLORS
+
+000: 0
+00F: 1
+0F0: 2
+0FF: 3
+F00: 4
+F0F: 5
+FF0: 6
+FFF: 7
+
+F90: head
+666: tail
+099: push
+909: pull
+# 093: chead
+690: chead
+F99: cons
+333: temp
+
+# 333: safe
+
+
+
+@TABLE
+states: 15
+neighborhood: Moore
+symmetries: rotate4reflect
+
+rgb = (1..7)
+rgb0 = (0, rgb)
+hchead = (head, chead)
+# anyhead = (head, push, pull, shift, chead)
+anyhead = (head, push, pull, chead)
+
+# RAM
+# Normal + normal = set zero
+0, N head, NE (rgb_r, rgb_g), E head, SE..NW --anyhead, head -> N:temp NE:rgb_r E:temp
+# Constructor + constructor = invert
+0, N chead, NE (rgb_r, rgb_g), E chead, SE..NW --anyhead, chead -> N:temp NE[NE:(rgb_g, rgb_r)] E:temp
+# Normal + constructor = read
+0, N head, NE (rgb_r, rgb_g), E chead, SE..NW --anyhead, head -> N[NE:(tail, temp)] NE[NE] E:temp
+
+
+#############################
+#region   CONSTRUCTION      #
+#############################
+
+# PHASE 1
+# (Inner photons combine -xx-)
+# --
+# ignore - 00, 01, 02, 10, 20, 11, 22
+# --
+# red - 12 (2122)
+# green - 12 (2121)
+0, NW chead, N head, NE 0, E chead, SE (chead, head), S..W rgb0, [SE:(rgb_r, rgb_g)]
+# --
+# 0, NW chead, N head, NE 0, E chead, SE head, S..W 0, rgb_b
+# --
+# blue - 21 (2211)
+0, NW chead, N chead, NE 0, E head, SE head, S..W rgb0, rgb_b
+# --
+
+# PHASE 2
+# (Outer photons combine and RGB storage forms --xx)
+0, N chead, NE any, E hchead, SE..S 0, SW rgb0, W..NW 0, cons
+any, N..E any, SE tail, S hchead, SW 0, W chead, NW tail, tail
+# --
+# red - 01
+head, NW chead, N any, NE 0, E tail, SE..W rgb0, rgb_r
+# --
+# cyan - 02
+chead, NW hchead, N any, NE 0, E tail, SE..W rgb0, rgb_c
+# --
+# green - 11
+head, NW chead, N (head, rgb_b), NE tail, E tail, SE..W rgb0, rgb_g
+# --
+# yellow - 12
+chead, NW hchead, N (head, rgb_r, rgb_g), NE tail, E tail, SE..W rgb0, rgb_y
+# --
+# blue - 21
+head, NW chead, N (chead, rgb_g), NE tail, E tail, SE..W rgb0, rgb_b
+# --
+# magenta - 22
+chead, NW hchead, N (chead, rgb_b), NE tail, E tail, SE..W rgb0, rgb_m
+# --
+
+# PHASE 3
+# (RGB storages moves around)
+rgb, W cons, NW rgb, N tail, NE..SW any, tail
+# rgb, W cons, NW rgb, N..SW any, tail
+0, N cons, NE rgb, E..NW any, [NE]
+
+# PHASE 4
+# (Final application)
+# --
+# 2001 = cyan + red = remove
+rgb0, N rgb_c, NE cons, E rgb_r, SE..NW any, 0
+# --
+# 2011 = cyan + green = invert
+rgb0, N rgb_c, NE cons, E rgb_g, SE..NW any, [0:(7,6,5,4,3,2,1,0)]
+# --
+# 2021 = cyan + blue = read
+rgb, N rgb_c, NE cons, E rgb_b, SE..NW any, [0] -> N:temp NE:head E:temp
+rgb0, N rgb_c, NE cons, E rgb_b, SE..NW any, [0] -> N:temp NE:head E:tail
+# --
+# 2101 = yellow + red = invert R
+rgb0, N rgb_y, NE cons, E rgb_r, SE..NW any, [0:(4,5,6,7,0,1,2,3)]
+# --
+# 2111 = yellow + green = invert G
+rgb0, N rgb_y, NE cons, E rgb_g, SE..NW any, [0:(2,3,0,1,6,7,4,5)]
+# --
+# 2121 = yellow + blue = invert B
+rgb0, N rgb_y, NE cons, E rgb_b, SE..NW any, [0:(1,0,3,2,5,4,7,6)]
+# --
+# 2021 = magenta + blue = read R
+(4,5,6,7), N rgb_m, NE cons, E rgb_r, SE..NW any, [0] -> E:temp
+# --
+# 2021 = magenta + blue = read G
+(2,3,6,7), N rgb_m, NE cons, E rgb_g, SE..NW any, [0] -> E:temp
+# --
+# 2021 = magenta + blue = read B
+(1,3,5,7), N rgb_m, NE cons, E rgb_b, SE..NW any, [0] -> E:temp
+rgb0, N rgb_m, NE cons, E (rgb_r, rgb_g, rgb_b), SE..NW any, [0] -> N:temp NE:head E:tail
+# --
+cons, S rgb, SW --tail, W rgb, NW..SE any, 0 -> S:0 W:0
+
+#############################
+#endregion   CONSTRUCTION   #
+#############################
+
+
+# # Shifter
+# rgb, NW --tail, N shift, NE --tail, E..W any, shift
+# rgb0, NW --tail, N shift, NE tail, E shift, SE --tail, S..W any, shift
+# 0, N tail, NE any, E rgb0, SE shift, S any, SW --shift, W..NW any, [E]
+# # tail, SW tail, W shift, NW any, N shift, NE any, E rgb0, SE..S any, [E]
+
+# PUSH/PULL
+0, N rgb, NE..SE any, S (push, pull), SW..NW any, 0
+# Push + pull = destroy
+(rgb-rgb_y), W push, NW..NE any, E pull, SE..SW any, 0
+# Push
+(0, tail), NW --pull, N rgb-rgb_y, NE push, E 0, SE..W any, [N] -> N:0
+# Pull
+(0, tail), NW --push, N rgb-rgb_y, NE pull, E tail, SE..W any, [N] -> N:0
+
+# # COLLISION SYNTHESIS
+# # YCY -> pusher
+# 0, E head, SE rgb_y, S rgb_c, SW rgb_y, W head, NW..NE any, push
+# # YMY -> puller
+# 0, E head, SE rgb_y, S rgb_m, SW rgb_y, W head, NW..NE any, pull
+# # YYY -> constructor
+# 0, E head, SE rgb_y, S rgb_y, SW rgb_y, W head, NW..NE any, chead
+
+# SLIDEBY SYNTHESIS
+# C + normal -> pusher
+0, W rgb_y, NW rgb_c, N head, NE any, E --rgb_y, SE..SW any, push
+# M + normal -> puller
+0, W rgb_y, NW rgb_m, N head, NE any, E --rgb_y, SE..SW any, pull
+# G + normal -> constructor
+0, W rgb_y, NW rgb_g, N head, NE any, E --rgb_y, SE..SW any, chead
+# Y + any -> normal
+0, W rgb_y, NW rgb_y, N anyhead-head, NE any, E --rgb_y, SE..SW any, head
+
+# Diagonal split at magenta
+0, N rgb_m, NE hchead, E --tail, SE..NW any, [NE]
+0, NW tail, N hchead, NE rgb_m, E..W any, tail
+
+# Rotate at blue
+0, N rgb_b, NE tail, E hchead, SE..NW any, [E]
+
+# Split at cyan
+0, NW tail, N hchead, NE rgb_c, E..W any, [N]
+
+# Differing in-phase signals cancel
+0, W anyhead, NW..NE any, E anyhead-[W], SE..SW any, 0
+
+# # Signals combine out-of-phase (except "shift")
+# 0, NW tail, N anyhead-shift, NE anyhead-shift, E --tail, SE..W any, [N]
+# Signals combine out-of-phase
+0, NW tail, N anyhead, NE anyhead, E --tail, SE..W any, [N]
+
+# Basic particles
+tail, N..NW any, 0
+anyhead, N..NW any, tail
+0, NW --tail, N anyhead-(pull, push), NE --tail, E..W any, [N]
+0, NW --(tail, rgb-rgb_y), N (pull, push), NE --(tail, rgb-rgb_y), E..W any, [N]
+
+# Signals combine in-phase
+0, NW tail, N anyhead, NE tail, E..W any, [N]
+
+
+# Temporary cell disappears
+temp, N..NW any, 0
+
+# # Temporary cell is CGOL
+# symmetries: permute
+# temp, temp ~ 2, any, --temp ~ 5, temp
+# 0, temp ~ 3, --temp ~ 5, temp
+# temp, any ~ 8, 0
