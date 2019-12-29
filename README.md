@@ -96,6 +96,15 @@ x = 28, y = 8, rule = Colorized
 24.G$5.C18.A$HI8.HI8.HI$16.AG8.AG3$5.I9.I9.I$5.H9.H9.H!
 ```
 
+Three of these collisions work with construction photons (green) as well. (The other two interfere with transitions used for [construction](#construction).)
+
+![Green photon collisions](/img/collisions.png)
+
+```
+x = 50, y = 12, rule = Colorized
+4.G29.2G8.2G5$.HJ3.JH23.HJ4.JH2.HJ2$45.J$45.H3$4.G29.2G!
+```
+
 See [Examples - Logic gates](#logic-gates) for examples of how these collisions can be used in conjunction with photon-block interactions to make logic gates.
 
 ## Examples
@@ -160,7 +169,7 @@ x = 10, y = 17, rule = Colorized
 
 ### Logic gates
 
-AND, OR, and XOR gates:
+OR, AND, and XOR gates:
 
 ![OR, AND, and XOR logic gates](/img/gates.png)
 
