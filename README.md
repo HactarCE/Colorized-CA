@@ -96,7 +96,7 @@ x = 28, y = 8, rule = Colorized
 24.G$5.C18.A$HI8.HI8.HI$16.AG8.AG3$5.I9.I9.I$5.H9.H9.H!
 ```
 
-See [Examples / Logic gates](#logic-gates) for examples of how these collisions can be used in conjunction with photon-block interactions to make logic gates.
+See [Examples - Logic gates](#logic-gates) for examples of how these collisions can be used in conjunction with photon-block interactions to make logic gates.
 
 ## Examples
 
@@ -161,6 +161,8 @@ x = 10, y = 17, rule = Colorized
 ### Logic gates
 
 AND, OR, and XOR gates:
+
+![OR, AND, and XOR logic gates](/img/gates.png)
 
 ```
 x = 80, y = 50, rule = Colorized
