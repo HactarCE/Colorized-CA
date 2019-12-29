@@ -211,6 +211,32 @@ x = 20, y = 20, rule = Colorized
 2$2.G4.CFG3.F4.G$2.I$2.HA$.G$4.G6$2.G4.EF4.F3.2G$2.I$2.HA$.G$4.G!
 ```
 
+### Construction
+
+Orthogonal collisions of a construction photon and a signal photon result in the construction, destruction, or detection of a block nearby. Each of these photons may be a double photon, either homogenous or mixed, resulting in nine unique construction commands. This is where the real power of Colorized comes from; these collisions can be used to construct, disassemble, or analyze any stable pattern made from blocks. The table below illustrates these commands, and their effect on a block. There is a column for each command, and a row for each stable block.
+
+![Stamp collection of construction commands](img/construction-stamps.png)
+
+[`construction-stamps.rle`](patterns/construction-stamps.rle)
+
+I highly recommend viewing this pattern in Golly and observing the effect of each command yourself. The commands, in order in the pattern above, are:
+
+1. Delete / Clear all color bits
+2. Toggle all color bits
+3. Detect any
+4. Toggle red bit
+5. Toggle green bit
+6. Toggle blue bit
+7. Detect red bit
+8. Detect green bit
+9. Detect blue bit
+
+Since the binary encoding of a state of a block describes its color, construction commands operate directly on that binary encoding. The "detect" commands emit two photons if the bit is `1` and one photon if the bit is `0`; the extra photon is emitted to aid in signal timing.
+
+In theory, these commands allow for storage of data at a rate of 3 bits per cell (compared with 0.25 bits per cell using [memcells](#memory-cells)), but in practice this is quite cumbersome.
+
+Collisions of two construction photons is undefined, reserved for possible future expansion.
+
 ## Examples
 
 ### Signal manipulation
