@@ -37,7 +37,15 @@ Colorized has four types of photons:
 
 (Each photon pictured is moving to the right.)
 
-### Photon-block interactions
+#### Parity
+
+The parity of a photon (similar to a glider's "[color](https://www.conwaylife.com/wiki/Glider#Colour_of_a_glider)" in Conway's Game of Life, although that term would be confusing in this context) is either odd or even, and can be calculated by summing the X and Y positions of the photon along with the generation count. The parity (odd vs. even) of the resulting number gives the parity of the photon. A photon cannot change parity without interacting with a magenta block.
+
+It doesn't really matter whether a given photon has odd or even parity, but it does matter whether two photons have _different_ parities. Two photons are considered "in phase" if they have the same parity, and "out of phase" if their parities differ.
+
+### Basic interactions
+
+#### Photon-block
 
 _Copy and paste this RLE into Golly and refer to it while reading this section:_
 
@@ -67,15 +75,7 @@ x = 30, y = 10, rule = Colorized
 
 See [Examples - Signal manipulation](#signal-manipulation) for more examples.
 
-### Photon-photon interactions
-
-#### Parity
-
-The parity of a photon (similar to a glider's "[color](https://www.conwaylife.com/wiki/Glider#Colour_of_a_glider)" in Conway's Game of Life, although that term would be confusing in this context) is either odd or even, and can be calculated by summing the X and Y positions of the photon along with the generation count. The parity (odd vs. even) of the resulting number gives the parity of the photon. A photon cannot change parity without interacting with a magenta block.
-
-It doesn't really matter whether a given photon has odd or even parity, but it does matter whether two photons have _different_ parities. Two photons are considered "in phase" if they have the same parity, and "out of phase" if their parities differ.
-
-#### Collisions
+#### Photon-photon
 
 There are five ways that two photons can collide and interact. The first three are in-phase while the last two are out-of-phase:
 
