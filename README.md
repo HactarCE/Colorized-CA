@@ -28,7 +28,7 @@ You can simulate Colorized using [Golly](http://golly.sourceforge.net/); copy an
 
 ### States
 
-Colorized currently has 15 states:
+Colorized has 15 states:
 
 ![All states](/img/states-all.png)
 
