@@ -32,7 +32,7 @@ Colorized has four types of photons:
 |---------------------------------------|------------|---------------------|
 | ![Orange photon](/img/photon-9.png)   | 9          | Signal photon       |
 | ![Green photon](/img/photon-10.png)   | 10         | Construction photon |
-| ![Cyan photon](/img/photon-11.png)    | 11         | Pusher photon       |
+| ![Teal photon](/img/photon-11.png)    | 11         | Pusher photon       |
 | ![Magenta photon](/img/photon-12.png) | 12         | Puller photon       |
 
 (Each photon pictured is moving to the right.)
@@ -98,14 +98,118 @@ x = 28, y = 8, rule = Colorized
 
 Three of these collisions work with construction photons (green) as well. (The other two interfere with transitions used for [construction](#construction).)
 
-![Green photon collisions](/img/collisions.png)
+![Green photon collisions](/img/collisions-green.png)
 
 ```
 x = 50, y = 12, rule = Colorized
 4.G29.2G8.2G5$.HJ3.JH23.HJ4.JH2.HJ2$45.J$45.H3$4.G29.2G!
 ```
 
+For collisions where a "double photon" or "fat photon" emerges, a signal photon and construction photon can be used together to create a single mixed photon. This is invaluable for [construction](#construction).
+
+![Mixed photon collisions](/img/collisions-mixed.png)
+
+```
+x = 30, y = 12, rule = Colorized
+4.2G8.2G8.2G5$.HI4.JH2.HI8.HJ2$15.J9.I$15.H9.H3$4.2G!
+```
+
 See [Examples - Logic gates](#logic-gates) for examples of how these collisions can be used in conjunction with photon-block interactions to make logic gates.
+
+### Photon conversion
+
+In conjunction with another block, yellow blocks can be used to construct **photon converters** which convert one type of photon into another.
+
+![Converters](img/converters.png)
+
+```
+x = 30, y = 10, rule = Colorized
+$2.F4.F9.F4.F4.F$2.F4.F9.B4.C4.E5$.I.J2.K.L7.I4.I4.I$.H.H2.H.H7.H4.H
+4.H!
+```
+
+### Memory cell
+
+Although a simple memory cell could be constructed out of logic gates, Colorized provides a very compact built-in option. A single red or green block (state 4 or 2 respectively) is a memory cell; red = off/`0`, green = on/`1`. Memcells can be arranged in a grid with a density of 25%, like so:
+
+![Memory cell grid](img/memcell-grid.png)
+
+There are three operations: read, reset, and toggle.
+
+#### Memory cell read
+
+Colliding a construction photon and a signal photon near a memory cell will destroy the construction photon if the memory cell is off, or convert it into a signal photon if the memory cell is on:
+
+![Memory cell read](img/memcell-read.png)
+
+```
+x = 20, y = 10, rule = Colorized
+$15.G3$.HI5.G2.HI5.G$4.D9.B2$5.J9.J$5.H9.H!
+```
+
+Note that the original signal photon is preserved; this enables reading a whole row of memcells at once:
+
+```
+x = 20, y = 20, rule = Colorized
+$6.G2$3.C3.AG.D.D.D.D$2.G15.G$7.AG.B.B.D.B2$7.AG.D.D.D.D2$7.AG.D.D.D.
+D$3.I$3.H6.G.G.G.G$10.A.A.A.A$5.HJ11.G3$16.C$15.G!
+```
+
+#### Memory cell reset
+
+Colliding two signal photons near a memory cell will set the memory cell's state to "off" (i.e. red):
+
+![Memory cell reset](img/memcell-reset.png)
+
+```
+x = 20, y = 10, rule = Colorized
+$5.G9.G3$.HI5.G2.HI5.G$4.D9.B2$5.I9.I$5.H9.H!
+```
+
+Note that both photons are preserved; this enables resetting a whole array of memcells at once:
+
+```
+x = 20, y = 20, rule = Colorized
+$6.G4.G.G.G.G$18.G$7.AG.D.B.B.B$18.G$7.AG.D.D.D.B$18.G$7.AG.B.D.B.D$
+18.G$7.AG.D.B.D.D2$6.I3.G.G.G.G$6.H3.A.A.A.A$7.HI9.G!
+```
+
+#### Memory cell toggle
+
+Colliding two signal photons near a memory cell will switch the memory cell's state:
+
+![Memory cell toggle](img/memcell-toggle.png)
+
+```
+x = 20, y = 10, rule = Colorized
+$5.G9.G3$.HI5.G2.HI5.G$4.D9.B2$5.I9.I$5.H9.H!
+```
+
+Note that both photons are preserved; this enables toggling a whole array of memcells at once:
+
+```
+x = 20, y = 20, rule = Colorized
+$6.G4.G.G.G.G$18.G$7.AG.D.B.B.B$18.G$7.AG.D.D.D.B$18.G$7.AG.B.D.B.D$
+18.G$7.AG.D.B.D.D2$6.J3.G.G.G.G$6.H3.A.A.A.A$7.HJ9.G!
+```
+
+### Pusher and puller photons
+
+Pusher photons (teal) push blocks, while puller photons (purple) pull blocks:
+
+![Pusher and puller photon demonstration](img/pusher-puller.png)
+
+```
+x = 20, y = 20, rule = Colorized
+2$2.G7.CFG2.F2.G$2.I$2.HA$.G$4.G6$2.G7.EF2.F2.2G$2.I$2.HA$.G$4.G!
+```
+
+Yellow blocks are unaffected by pusher and puller photons:
+
+```
+x = 20, y = 20, rule = Colorized
+2$2.G4.CFG3.F4.G$2.I$2.HA$.G$4.G6$2.G4.EF4.F3.2G$2.I$2.HA$.G$4.G!
+```
 
 ## Examples
 
