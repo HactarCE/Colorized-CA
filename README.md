@@ -224,6 +224,24 @@ x = 20, y = 20, rule = Colorized
 2$2.G7.CFG2.F2.G$2.I$2.HA$.G$4.G6$2.G7.EF2.F2.2G$2.I$2.HA$.G$4.G!
 ```
 
+If two pusher or puller photons try to push or pull a block in different directions at the same time, the block will duplicate (unless one of the photons is in the way):
+
+![Pusher and puller photons going in different directions](img/push-pull-opposition.png)
+
+```
+x = 20, y = 10, rule = Colorized
+$.HK8.HL$4.G9.G$6.KH8.LH2$.HK8.HL$4.G9.G2$5.K9.L$5.H9.H!
+```
+
+If two parallel pusher and puller photons both try to affect a block at the same time, the block will be destroyed:
+
+![Pusher and puller photons destroying a block](img/push-pull-destroy.png)
+
+```
+x = 10, y = 10, rule = Colorized
+$.HK$4.G$6.LH2$.HL$4.G$.HK!
+```
+
 Yellow blocks are unaffected by pusher and puller photons:
 
 ```
