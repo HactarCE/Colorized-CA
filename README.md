@@ -1,37 +1,22 @@
 # Colorized
 
-Colorized is a cellular automaton, similar to
-[Wireworld](https://github.com/GollyGang/ruletablerepository/wiki/WireWorld) or
-[JvN](http://golly.sourceforge.net/Help/Algorithms/JvN.html). Colorized is
-notably different from those examples because signals propogate through empty
-space instead of wires. This isn't a new idea; Colorized is heavily based on
-Joel Walker's 2011 "Particles" rule (found
-[here](https://github.com/GollyGang/ruletablerepository/wiki/TheRules#wireworld-and-derivatives))
-and Redstoneboi's "Sticky" rule. Rather than aiming for a minimum of states or
-transitions, the primary goal of Colorized is to be easy to use for computation
-and construction, with simplicity and minimalism as lower priorities.
+Colorized is a cellular automaton, similar to [Wireworld](https://github.com/GollyGang/ruletablerepository/wiki/WireWorld) or [JvN](http://golly.sourceforge.net/Help/Algorithms/JvN.html). Colorized is notably different from those examples because signals propogate through empty space instead of wires. This isn't a new idea; Colorized is heavily based on Joel Walker's 2011 "Particles" rule (found [here](https://github.com/GollyGang/ruletablerepository/wiki/TheRules#wireworld-and-derivatives)) and Redstoneboi's "Sticky" rule. Rather than aiming for a minimum of states or transitions, the primary goal of Colorized is to be easy to use for computation and construction, with simplicity and minimalism as lower priorities.
 
-Colorized is not yet complete, and nearly everything in this document is subject
-to change at any time.
+You can simulate Colorized using [Golly](http://golly.sourceforge.net/); copy and paste the contents of [`Colorized.rule`](https://raw.githubusercontent.com/HactarCE/Colorized-CA/master/Colorized.rule) into Golly to get started.
 
-## States
+## Mechanics
+
+### States
 
 Colorized currently has 15 states:
 
 ![All states](/img/states-all.png)
 
-Colorized gets its name from the first eight states, which are the colors black
-(which doubles as a vacuum/blank state), blue, green, cyan, red, magenta,
-yellow, and white respectively. These eight states are sometimes referred to as
-"blocks." Any pattern consisting only of blocks is stable. You may notice that
-the binary representation of a block corresponds to the red, green, and blue
-components of its color; this is intentional.
+Colorized gets its name from the first eight states, which are the colors black (which doubles as a vacuum/blank state), blue, green, cyan, red, magenta, yellow, and white respectively. These eight states are sometimes referred to as "blocks." Any pattern consisting only of blocks is stable. You may notice that the binary representation of a block corresponds to the red, green, and blue components of its color; this is intentional.
 
 ![Color states](/img/states-colors.png)
 
-The next five states are used for photons, which are particles that move at 1
-cell/tick (sometimes called the speed of light). The first of these (grey) is
-used as the tail of a signal, and any of the other four can be a signal head.
+The next five states are used for photons, which are particles that move at 1 cell/tick (sometimes called the speed of light). The first of these (grey) is used as the tail of a signal, and any of the other four can be a signal head.
 
 ![Photon states](/img/states-photons.png)
 
@@ -39,7 +24,7 @@ The last two are temporary states used for construction.
 
 ![Construction states](/img/states-construction.png)
 
-## Photons
+### Photons
 
 Colorized has four types of photons:
 
@@ -52,19 +37,9 @@ Colorized has four types of photons:
 
 (Each photon pictured is moving to the right.)
 
-The tail of a photon will always turn into state 0 (vacuum), and the head of a
-photon will almost always turn into a tail. A blank cell will turn into any of
-these photon heads if there is a head orthogonally adjacent to the blank cell
-AND there is no diagonally adjacent tail that is also orthogonally adjacent to
-that head.
+Photons move orthogonally at [_c_](https://conwaylife.com/wiki/Speed) (1 cell per generation).
 
-![Photon propogation](/img/photon-propogation.png)
-
-If that doesn't make sense, don't worry.
-
-### Signal photons
-
-#### Interaction with blocks
+### Photon-block interactions
 
 _Copy and paste this RLE into Golly and refer to it while reading this section:_
 
@@ -75,24 +50,24 @@ x = 90, y = 10, rule = Colorized
 $3.G60.2G$45.G38.G!
 ```
 
-White is an **absorber**. A head-on collision with white will annihilate the
-photon.
+White is an **absorber**. A head-on collision with white will annihilate the photon.
 
-Cyan is a **splitter**. A head-on collision with cyan will split a photon into
-two orthogonal ones of the same type.
+Cyan is a **splitter**. A head-on collision with cyan will split a photon into two orthogonal ones of the same type.
 
-Blue is a **rotator**. A head-on collision with blue will annihilate the photon,
-but if a photon slides past blue directly adjacent to it, a new photon of the
-same type will be produced orthogonal to the original one.
+Blue is a **rotator**. A head-on collision with blue will annihilate the photon, but if a photon slides past blue directly adjacent to it, a new photon of the same type will be produced orthogonal to the original one.
 
-Magenta is a **diagonal duplicator**. In its immediate vicinity, magenta allows
-photon heads to spread both orthogonally (as normal) and diagonally.
+Magenta is a **diagonal duplicator**. In its immediate vicinity, magenta allows photon heads to spread both orthogonally (as normal) and diagonally.
 
-Red, green, and yellow usually behave the same way as white, but it is
-recommended **not** to use them in pure logic devices due to their special behavior
-in construction and memory storage.
+Red, green, and yellow usually behave the same way as white, but it is recommended **not** to use them in pure logic devices due to their special behavior in construction and memory storage.
 
-##### Usage examples
+These interactions are primarily intended for signal photons (orange), but white and cyan work for construction photons (green) as well:
+
+```
+x = 30, y = 10, rule = Colorized
+3.G16.HJ2.G4$HJ2.C15.HJ7.G$24.G3$3.G!
+```
+
+#### Examples
 
 Diode reflector:
 
@@ -150,41 +125,41 @@ x = 10, y = 17, rule = Colorized
 6.GC$5.C2.G$5.C$.HI5.C$6.A$4.G$7.G6$6.G.G$HI7.C$4.GA$5.C3.G$6.G.C!
 ```
 
-# WIP sections
-
-### Photon-photon collisions
+### Photon-photon interactions
 
 #### Parity
 
-The parity of a photon (sometimes called "color," but that would be confusing in
-this context) is either odd or even, and can be calculated by summing the X and
-Y positions of the photon along with the generation count. The parity (odd vs.
-even) of the resulting number gives the parity of the photon. A photon cannot
-change parity without touching a magenta block.
+The parity of a photon (similar to a glider's "[color](https://www.conwaylife.com/wiki/Glider#Colour_of_a_glider)" in Conway's Game of Life, although that term would be confusing in this context) is either odd or even, and can be calculated by summing the X and Y positions of the photon along with the generation count. The parity (odd vs. even) of the resulting number gives the parity of the photon. A photon cannot change parity without interacting with a magenta block.
 
-It doesn't really matter whether a given photon has odd or even parity, but it
-matters significantly whether two photons have _different_ parities. Two photons
-are considered "in phase" if they have the same parity, and "out of phase" if
-their parities differ.
+It doesn't really matter whether a given photon has odd or even parity, but it does matter whether two photons have _different_ parities. Two photons are considered "in phase" if they have the same parity, and "out of phase" if their parities differ.
 
-#### In-phase collisions
+#### Collisions
 
-If two perpendicular in-phase photons collide, they will annihilate:
+There are five ways that two photons can collide and interact. The first three are in-phase while the last two are out-of-phase:
 
-![In-phase perpendicular collision](/img/collide-in-phase-1.png)
+![Orange photon collisions](/img/collisions.png)
 
 ```
-x = 6, y = 6, rule = Colorized
-HI4$5.I$5.H!
+x = 50, y = 12, rule = Colorized
+4.G20.G8.2G8.2G5$.HI3.IH3.HI8.HI8.HI4.IH2.HI$25.I$25.H19.I$15.I29.H$
+15.H2$4.G19.G9.2G!
 ```
 
-A cyan or blue block can cause one or both of the photons to survive:
+In the second collision shown above, a cyan or blue block can cause one or both of the photons to survive:
 
-![In-phase perpendicular collision with survival](/img/collide-in-phase-2-survive.png)
+![Symmetric perpendicular collision with survival](/img/collide-2-survive.png)
 
 ```
 x = 28, y = 8, rule = Colorized
 24.G$5.C18.A$HI8.HI8.HI$16.AG8.AG3$5.I9.I9.I$5.H9.H9.H!
 ```
 
-If two aligned parallel in-phase photons collide, they
+## Implementation
+
+If you want to construct patterns in Colorized, you do not need to read this section. If you want to understand how Colorized was devised, or to invent a similar automaton, this is the section for you!
+
+### Photon propogation
+
+The tail of a photon will always turn into state 0 (vacuum), and the head of a photon will almost always turn into a tail. A blank cell will turn into any of these photon heads if there is a head orthogonally adjacent to the blank cell AND there is no diagonally adjacent tail that is also orthogonally adjacent to that head.
+
+![Photon propogation](/img/photon-propogation.png)
