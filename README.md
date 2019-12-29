@@ -16,7 +16,7 @@ Colorized gets its name from the first eight states, which are the colors black 
 
 ![Color states](/img/states-colors.png)
 
-The next five states are used for photons, which are particles that move at 1 cell/tick (sometimes called the speed of light). The first of these (grey) is used as the tail of a signal, and any of the other four can be a signal head.
+The next five states are used for photons, which are patterns that move at [_c_](https://conwaylife.com/wiki/Speed) (1 cell per generation). The first of these (grey) is used as the "tail" of a photon, and any of the other four can be the "head" of a photon.
 
 ![Photon states](/img/states-photons.png)
 
@@ -36,8 +36,6 @@ Colorized has four types of photons:
 | ![Magenta photon](/img/photon-12.png) | 12         | Puller photon       |
 
 (Each photon pictured is moving to the right.)
-
-Photons move orthogonally at [_c_](https://conwaylife.com/wiki/Speed) (1 cell per generation).
 
 ### Photon-block interactions
 
