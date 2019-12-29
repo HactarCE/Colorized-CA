@@ -40,7 +40,7 @@ The next five states are used for photons, which are patterns that move at [_c_]
 
 ![Photon states](/img/states-photons.png)
 
-The last two are temporary states used for construction.
+The last two are temporary states used for [construction](#construction).
 
 ![Construction states](/img/states-construction.png)
 
