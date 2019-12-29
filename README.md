@@ -253,7 +253,7 @@ I highly recommend viewing this pattern in Golly and observing the effect of eac
 
 Since the binary encoding of a state of a block describes its color, construction commands operate directly on that binary encoding. The "detect" commands emit two photons if the bit is `1` and one photon if the bit is `0`; the extra photon is emitted to aid in signal timing.
 
-In theory, these commands allow for storage of data 3 bits per cell (compared with 0.25 bits per cell using [memcells](#memory-cells)), but in practice this is quite cumbersome.
+In theory, these commands allow for storage of data 3 bits per cell (compared with 0.25 bits per cell using [memcells](#memory-cell)), but in practice this is quite cumbersome.
 
 Collisions of two construction photons is undefined, reserved for possible future expansion.
 
