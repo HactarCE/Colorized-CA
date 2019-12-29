@@ -290,7 +290,7 @@ G.G.G12.G19.G19.G$2.3G.G.2G.G.G7.HI4.C19.C13.HI4.C$2.G.G.G2.G.G.G11.G
 
 ## Implementation
 
-If you want to construct patterns in Colorized, you do not need to read this section. If you want to understand how Colorized was implemented, or to invent a similar automaton, this is the section for you!
+If you only want to construct patterns in Colorized, you do not need to read this section. If you want to understand how Colorized was implemented, or to invent a similar automaton, this is the section for you!
 
 ### Photon propogation
 
