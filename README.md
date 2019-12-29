@@ -58,14 +58,49 @@ Magenta is a **diagonal duplicator**. In its immediate vicinity, magenta allows 
 
 Red, green, and yellow usually behave the same way as white, but it is recommended **not** to use them in pure logic devices due to their special behavior in construction and memory storage.
 
-These interactions are primarily intended for signal photons (orange), but white and cyan work for construction photons (green) as well:
+These interactions are primarily intended for signal photons (orange), but white and cyan generally work for construction photons (green) as well:
 
 ```
 x = 30, y = 10, rule = Colorized
 3.G16.HJ2.G4$HJ2.C15.HJ7.G$24.G3$3.G!
 ```
 
-#### Examples
+See [Examples - Signal manipulation](#signal-manipulation) for more examples.
+
+### Photon-photon interactions
+
+#### Parity
+
+The parity of a photon (similar to a glider's "[color](https://www.conwaylife.com/wiki/Glider#Colour_of_a_glider)" in Conway's Game of Life, although that term would be confusing in this context) is either odd or even, and can be calculated by summing the X and Y positions of the photon along with the generation count. The parity (odd vs. even) of the resulting number gives the parity of the photon. A photon cannot change parity without interacting with a magenta block.
+
+It doesn't really matter whether a given photon has odd or even parity, but it does matter whether two photons have _different_ parities. Two photons are considered "in phase" if they have the same parity, and "out of phase" if their parities differ.
+
+#### Collisions
+
+There are five ways that two photons can collide and interact. The first three are in-phase while the last two are out-of-phase:
+
+![Orange photon collisions](/img/collisions.png)
+
+```
+x = 50, y = 12, rule = Colorized
+4.G20.G8.2G8.2G5$.HI3.IH3.HI8.HI8.HI4.IH2.HI$25.I$25.H19.I$15.I29.H$
+15.H2$4.G19.G9.2G!
+```
+
+In the second collision shown above, a cyan or blue block can cause one or both of the photons to survive:
+
+![Symmetric perpendicular collision with survival](/img/collide-2-survive.png)
+
+```
+x = 28, y = 8, rule = Colorized
+24.G$5.C18.A$HI8.HI8.HI$16.AG8.AG3$5.I9.I9.I$5.H9.H9.H!
+```
+
+See [Examples / Logic gates](#logic-gates) for examples of how these collisions can be used in conjunction with photon-block interactions to make logic gates.
+
+## Examples
+
+### Signal manipulation
 
 Diode reflector:
 
@@ -123,38 +158,24 @@ x = 10, y = 17, rule = Colorized
 6.GC$5.C2.G$5.C$.HI5.C$6.A$4.G$7.G6$6.G.G$HI7.C$4.GA$5.C3.G$6.G.C!
 ```
 
-### Photon-photon interactions
+### Logic gates
 
-#### Parity
-
-The parity of a photon (similar to a glider's "[color](https://www.conwaylife.com/wiki/Glider#Colour_of_a_glider)" in Conway's Game of Life, although that term would be confusing in this context) is either odd or even, and can be calculated by summing the X and Y positions of the photon along with the generation count. The parity (odd vs. even) of the resulting number gives the parity of the photon. A photon cannot change parity without interacting with a magenta block.
-
-It doesn't really matter whether a given photon has odd or even parity, but it does matter whether two photons have _different_ parities. Two photons are considered "in phase" if they have the same parity, and "out of phase" if their parities differ.
-
-#### Collisions
-
-There are five ways that two photons can collide and interact. The first three are in-phase while the last two are out-of-phase:
-
-![Orange photon collisions](/img/collisions.png)
+AND, OR, and XOR gates:
 
 ```
-x = 50, y = 12, rule = Colorized
-4.G20.G8.2G8.2G5$.HI3.IH3.HI8.HI8.HI4.IH2.HI$25.I$25.H19.I$15.I29.H$
-15.H2$4.G19.G9.2G!
-```
-
-In the second collision shown above, a cyan or blue block can cause one or both of the photons to survive:
-
-![Symmetric perpendicular collision with survival](/img/collide-2-survive.png)
-
-```
-x = 28, y = 8, rule = Colorized
-24.G$5.C18.A$HI8.HI8.HI$16.AG8.AG3$5.I9.I9.I$5.H9.H9.H!
+x = 80, y = 50, rule = Colorized
+2$3.G2.2G18.G19.G19.G$2.G.G.G.G12.HI12.G19.G5.HI12.G$2.G.G.2G19.AG18.
+AG18.AG$2.G.G.G.G$3.G2.G.G$46.I19.I$46.H19.H14$3.G2.G2.G.2G$2.G.G.2G.
+G.G.G12.G19.G19.G$2.3G.G.2G.G.G7.HI4.C19.C13.HI4.C$2.G.G.G2.G.G.G11.G
+19.G19.G8.G$2.G.G.G2.G.2G14.C13.HI4.C13.HI4.C$26.G19.G19.G14$26.2C18.
+2C18.2C$2.G.G2.G2.2G13.G8.G10.G8.G10.G$2.G.G.G.G.G.G8.HI5.C19.C12.HI
+5.C$3.G2.G.G.2G15.G19.G19.G$2.G.G.G.G.G.G$2.G.G2.G2.G.G$46.I19.I$46.H
+19.H!
 ```
 
 ## Implementation
 
-If you want to construct patterns in Colorized, you do not need to read this section. If you want to understand how Colorized was devised, or to invent a similar automaton, this is the section for you!
+If you want to construct patterns in Colorized, you do not need to read this section. If you want to understand how Colorized was implemented, or to invent a similar automaton, this is the section for you!
 
 ### Photon propogation
 
