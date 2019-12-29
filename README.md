@@ -4,6 +4,26 @@ Colorized is a cellular automaton, similar to [Wireworld](https://github.com/Gol
 
 You can simulate Colorized using [Golly](http://golly.sourceforge.net/); copy and paste the contents of [`Colorized.rule`](https://raw.githubusercontent.com/HactarCE/Colorized-CA/master/Colorized.rule) into Golly to get started.
 
+- [Mechanics](#mechanics)
+    - [States](#states)
+    - [Photons](#photons)
+        - [Parity](#parity)
+    - [Basic interactions](#basic-interactions)
+        - [Photon-block](#photon-block)
+        - [Photon-photon](#photon-photon)
+    - [Photon conversion](#photon-conversion)
+    - [Memory cell](#memory-cell)
+        - [Memory cell read](#memory-cell-read)
+        - [Memory cell reset](#memory-cell-reset)
+        - [Memory cell toggle](#memory-cell-toggle)
+    - [Pusher and puller photons](#pusher-and-puller-photons)
+    - [Construction](#construction)
+- [Examples](#examples)
+    - [Signal manipulation](#signal-manipulation)
+    - [Logic gates](#logic-gates)
+- [Implementation](#implementation)
+    - [Photon propogation](#photon-propogation)
+
 ## Mechanics
 
 ### States
