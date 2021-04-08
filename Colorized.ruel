@@ -74,7 +74,7 @@ anyhead = (head, push, pull, chead)
 # --
 # red - 12 (2122)
 # green - 12 (2121)
-0, NW chead, N head, NE 0, E chead, SE (chead, head), S..W rgb0, [SE:(rgb_r, rgb_g)]
+0, NW chead, N head, NE 0, E chead, SE (chead, head), S..W rgb0, [SE:(rgb_m, rgb_c)]
 # --
 # 0, NW chead, N head, NE 0, E chead, SE head, S..W 0, rgb_b
 # --
@@ -97,10 +97,10 @@ chead, NW hchead, N any, NE 0, E tail, SE..W rgb0, rgb_c
 head, NW chead, N (head, rgb_b), NE tail, E tail, SE..W rgb0, rgb_g
 # --
 # yellow - 12
-chead, NW hchead, N (head, rgb_r, rgb_g), NE tail, E tail, SE..W rgb0, rgb_y
+chead, NW hchead, N (head, rgb_m, rgb_c), NE tail, E tail, SE..W rgb0, rgb_y
 # --
 # blue - 21
-head, NW chead, N (chead, rgb_g), NE tail, E tail, SE..W rgb0, rgb_b
+head, NW chead, N (chead, rgb_c), NE tail, E tail, SE..W rgb0, rgb_b
 # --
 # magenta - 22
 chead, NW hchead, N (chead, rgb_b), NE tail, E tail, SE..W rgb0, rgb_m
