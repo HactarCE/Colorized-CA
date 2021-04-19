@@ -356,8 +356,8 @@ G.G.G12.G19.G19.G$2.3G.G.2G.G.G7.HI4.C19.C13.HI4.C$2.G.G.G2.G.G.G11.G
 
 If you only want to construct patterns in Colorized, you do not need to read this section. If you want to understand how Colorized was implemented, or to invent a similar automaton, this is the section for you!
 
-### Photon propogation
+### Photon propagation
 
 The tail of a photon will always turn into state 0 (vacuum), and the head of a photon will almost always turn into a tail. A blank cell will turn into any of these photon heads if there is a head orthogonally adjacent to the blank cell AND there is no diagonally adjacent tail that is also orthogonally adjacent to that head.
 
-![Photon propogation](/img/photon-propogation.png)
+![Photon propagation](/img/photon-propogation.png)
