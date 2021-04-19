@@ -22,7 +22,7 @@ You can simulate Colorized using [Golly](http://golly.sourceforge.net/); copy an
     - [Signal manipulation](#signal-manipulation)
     - [Logic gates](#logic-gates)
 - [Implementation](#implementation)
-    - [Photon propogation](#photon-propogation)
+    - [Photon propagation](#photon-propagation)
 
 ## Mechanics
 
@@ -360,4 +360,4 @@ If you only want to construct patterns in Colorized, you do not need to read thi
 
 The tail of a photon will always turn into state 0 (vacuum), and the head of a photon will almost always turn into a tail. A blank cell will turn into any of these photon heads if there is a head orthogonally adjacent to the blank cell AND there is no diagonally adjacent tail that is also orthogonally adjacent to that head.
 
-![Photon propagation](/img/photon-propogation.png)
+![Photon propagation](/img/photon-propagation.png)
